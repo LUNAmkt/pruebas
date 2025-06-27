@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brief de Diseño de Logo</title>
+    <link href="https://fonts.cdnfonts.com/css/gidole" rel="stylesheet">
+    <style>
+        *, *:before, *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'gidole', sans-serif;
+            background-color: #1E1E1E;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lunabf-container {
+            background-color: #1E1E1E;
+            padding: 1.875rem;
+            border-radius: 1rem;
+            box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 43.75rem;
+            border: 1px solid #333;
+        }
+
+        .lunabf-progress-container {
+            width: 100%;
+            background-color: #333;
+            border-radius: 0.5rem;
+            margin-bottom: 1.875rem;
+            height: 1.25rem;
+            position: relative;
+        }
+
+        .lunabf-progress-fill {
+            width: 20%;
+            height: 100%;
+            background: linear-gradient(135deg, #2372D9, #1A5FAB);
+            border-radius: 0.5rem;
+            transition: width 0.4s ease-in-out;
+        }
+
+        .lunabf-step-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        .lunabf-form-step {
+            border: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+        }
+
+        .lunabf-form-step.lunabf-active-step {
+            display: block;
+            animation: lunabfFadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes lunabfFadeIn {
+            from { opacity: 0; transform: translateY(0.625rem); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .lunabf-form-step legend {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #2372D9;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.625rem;
+            border-bottom: 1px solid #333;
+            width: 100%;
+        }
+
+        .lunabf-form-group {
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+
+        .lunabf-form-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: #ccc;
+            font-weight: 500;
+            font-size: 0.95rem;
+            font-family: 'gidole', sans-serif;
+        }
+
+        .lunabf-form-required {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+
+        .lunabf-form-input,
+        .lunabf-form-textarea {
+            width: 100% !important;
+            max-width: none !important;
+            padding: 0.85rem 1.1rem !important;
+            border: 2px solid #333 !important;
+            border-radius: 0.625rem !important;
+            font-size: 1rem !important;
+            background: #252525 !important;
+            color: #ccc !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            font-family: 'gidole', sans-serif !important;
+            margin: 0 !important;
+            outline: none !important;
+        }
+
+        input.lunabf-form-input[type="text"],
+        input.lunabf-form-input[type="email"],
+        input.lunabf-form-input[type="tel"],
+        textarea.lunabf-form-textarea {
+            width: 100% !important;
+            max-width: none !important;
+            padding: 0.85rem 1.1rem !important;
+            border: 2px solid #333 !important;
+            border-radius: 0.625rem !important;
+            font-size: 1rem !important;
+            background: #252525 !important;
+            color: #ccc !important;
+            box-sizing: border-box !important;
+            font-family: 'gidole', sans-serif !important;
+            margin: 0 !important;
+            outline: none !important;
+            line-height: normal !important;
+        }
+
+        .lunabf-form-input:focus,
+        .lunabf-form-textarea:focus,
+        input.lunabf-form-input[type="text"]:focus,
+        input.lunabf-form-input[type="email"]:focus,
+        input.lunabf-form-input[type="tel"]:focus,
+        textarea.lunabf-form-textarea:focus {
+            outline: none !important;
+            border-color: #2372D9 !important;
+            box-shadow: 0 0 0 3px rgba(35, 114, 217, 0.25) !important;
+            background: #252525 !important;
+            color: #fff !important;
+        }
+
+        .lunabf-form-input::placeholder,
+        .lunabf-form-textarea::placeholder {
+            color: #666;
+        }
+
+        .lunabf-form-textarea {
+            resize: vertical;
+            min-height: 7.5rem;
+            max-width: none;
+        }
+
+        .lunabf-file-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 1rem;
+        }
+
+        .lunabf-file-input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .lunabf-file-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #666;
+            color: #fff;
+            border: 2px solid #666;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-family: 'gidole', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .lunabf-file-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: #2372D9;
+            transition: width 0.3s ease;
+            z-index: 1;
+        }
+
+        .lunabf-file-button:hover::before {
+            width: 100%;
+        }
+
+        .lunabf-file-button:hover {
+            border-color: #2372D9;
+        }
+
+        .lunabf-file-text {
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+
+        .lunabf-file-button:hover .lunabf-file-text {
+            color: #fff;
+        }
+
+        .lunabf-file-status {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: #252525;
+            border: 2px solid #333;
+            border-radius: 0.5rem;
+            color: #888;
+            font-family: 'gidole', sans-serif;
+            font-size: 0.9rem;
+            min-height: 2.75rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .lunabf-cubic-toggle {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .lunabf-cubic-toggle input[type="checkbox"] {
+            opacity: 0;
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        .lunabf-toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background-color: #333;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 1s cubic-bezier(0.25, 1.5, 0.5, 1);
+            flex-shrink: 0;
+        }
+
+        .lunabf-toggle-switch.lunabf-checked {
+            background-color: #2372D9;
+        }
+
+        .lunabf-toggle-circle {
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: transform 1s cubic-bezier(0.25, 1.5, 0.5, 1);
+        }
+
+        .lunabf-toggle-switch.lunabf-checked .lunabf-toggle-circle {
+            transform: translateX(30px);
+        }
+
+        .lunabf-toggle-label {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
+        .lunabf-toggle-label a {
+            color: #2372D9;
+            text-decoration: none;
+            margin: 0 0.25rem;
+        }
+
+        .lunabf-toggle-label a:hover {
+            text-decoration: underline;
+        }
+
+        .lunabf-dynamic-radio {
+            position: relative;
+            width: 200px;
+            height: 45px;
+            background: #333;
+            border-radius: 25px;
+            padding: 3px;
+            margin: 1rem 0;
+        }
+
+        .lunabf-dynamic-radio input[type="radio"] {
+            opacity: 0;
+            position: absolute;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .lunabf-radio-option {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            color: #999;
+            z-index: 3;
+            user-select: none;
+        }
+
+        .lunabf-radio-option:first-of-type {
+            left: 0;
+        }
+
+        .lunabf-radio-option:last-of-type {
+            right: 0;
+        }
+
+        .lunabf-radio-indicator {
+            position: absolute;
+            width: calc(50% - 3px);
+            height: calc(100% - 6px);
+            background: #2372D9;
+            border-radius: 22px;
+            transition: transform 0.3s cubic-bezier(0.25, 1.5, 0.5, 1);
+            z-index: 2;
+            top: 3px;
+            left: 3px;
+        }
+
+        .lunabf-dynamic-radio.lunabf-option-1-selected .lunabf-radio-indicator {
+            transform: translateX(0);
+        }
+
+        .lunabf-dynamic-radio.lunabf-option-2-selected .lunabf-radio-indicator {
+            transform: translateX(calc(100% + 3px));
+        }
+
+        .lunabf-dynamic-radio.lunabf-option-1-selected .lunabf-radio-option:first-of-type {
+            color: white;
+        }
+
+        .lunabf-dynamic-radio.lunabf-option-2-selected .lunabf-radio-option:last-of-type {
+            color: white;
+        }
+
+        .lunabf-select-container {
+            position: relative;
+            width: 100% !important;
+            max-width: none !important;
+        }
+
+        .lunabf-select-trigger {
+            width: 100% !important;
+            padding: 0.85rem 1.1rem !important;
+            padding-right: 3rem !important;
+            background: #111111 !important;
+            color: #ccc !important;
+            border: 2px solid #333 !important;
+            border-radius: 0.625rem !important;
+            cursor: pointer !important;
+            font-size: 1rem !important;
+            font-family: 'gidole', sans-serif !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            transition: all 0.3s ease !important;
+            user-select: none !important;
+            box-sizing: border-box !important;
+            margin: 0 !important;
+            outline: none !important;
+        }
+
+        .lunabf-select-trigger:hover {
+            border-color: #2372D9;
+        }
+
+        .lunabf-select-trigger.lunabf-open {
+            border-color: #2372D9;
+            box-shadow: 0 0 0 3px rgba(35, 114, 217, 0.25);
+        }
+
+        .lunabf-select-arrow {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #666;
+            transition: transform 0.3s ease;
+        }
+
+        .lunabf-select-trigger.lunabf-open .lunabf-select-arrow {
+            transform: translateY(-50%) rotate(180deg);
+            border-top-color: #2372D9;
+        }
+
+        .lunabf-select-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #111111;
+            border: 2px solid #2372D9;
+            border-top: none;
+            border-radius: 0 0 0.625rem 0.625rem;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .lunabf-select-options.lunabf-open {
+            display: block;
+        }
+
+        .lunabf-select-option {
+            padding: 0.75rem 1.1rem;
+            cursor: pointer;
+            color: #ccc;
+            font-family: 'gidole', sans-serif;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #333;
+        }
+
+        .lunabf-select-option:last-child {
+            border-bottom: none;
+        }
+
+        .lunabf-select-option:hover {
+            background: #2372D9;
+            color: white;
+        }
+
+        .lunabf-select-option.lunabf-selected {
+            background: #2372D9;
+            color: white;
+        }
+
+        .lunabf-nav-button {
+            position: relative !important;
+            display: inline-block !important;
+            background-color: transparent !important;
+            border: none !important;
+            cursor: pointer !important;
+            font-family: 'gidole', sans-serif !important;
+            margin: 0px 15px 10px !important;
+            overflow: hidden !important;
+            min-width: 120px !important;
+        }
+
+        .lunabf-nav-button::before {
+            position: absolute !important;
+            content: "" !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            height: 100% !important;
+            width: 0% !important;
+            background-color: #2372D9 !important;
+            transition: width 0.3s ease-out !important;
+            z-index: 1 !important;
+        }
+
+        .lunabf-nav-button:hover::before {
+            width: 100% !important;
+        }
+
+        .lunabf-nav-text {
+            position: relative !important;
+            display: inline-block !important;
+            font-size: 14px !important;
+            font-weight: bold !important;
+            letter-spacing: 1px !important;
+            text-transform: uppercase !important;
+            width: 100% !important;
+            padding: 12px 20px !important;
+            transition: color 0.2s ease !important;
+            z-index: 2 !important;
+            color: #fff !important;
+            border: 2px solid #666 !important;
+            background-color: #666 !important;
+            box-sizing: border-box !important;
+        }
+
+        .lunabf-nav-button:hover .lunabf-nav-text {
+            color: #fff !important;
+            transition: color 0.2s 0.1s ease !important;
+        }
+
+        .lunabf-nav-button:disabled {
+            opacity: 0.6 !important;
+            cursor: not-allowed !important;
+        }
+
+        .lunabf-nav-button:disabled::before {
+            width: 0% !important;
+            transition: none !important;
+        }
+
+        .lunabf-nav-button:disabled .lunabf-nav-text {
+            color: #444 !important;
+            background-color: #444 !important;
+            border-color: #444 !important;
+        }
+
+        .lunabf-nav-button:disabled:hover .lunabf-nav-text {
+            color: #444 !important;
+        }
+
+        .lunabf-form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.875rem;
+        }
+
+        .lunabf-checkbox-grid, 
+        .lunabf-radio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(9.375rem, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .lunabf-grid-3x2 {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.9375rem;
+        }
+
+        .lunabf-grid-2x2 {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.9375rem;
+        }
+
+        .lunabf-checkbox-item input[type="checkbox"],
+        .lunabf-radio-card input[type="radio"] {
+            opacity: 0;
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        .lunabf-checkbox-label, 
+        .lunabf-radio-label {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: #252525;
+            border: 2px solid #333;
+            border-radius: 0.625rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 400;
+            margin: 0;
+            color: #888;
+            font-family: 'gidole', sans-serif;
+        }
+
+        .lunabf-radio-card, 
+        .lunabf-checkbox-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            background: #252525;
+            border: 2px solid #333;
+            border-radius: 0.625rem;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .lunabf-radio-card:hover,
+        .lunabf-checkbox-card:hover {
+            border-color: #2372D9;
+            background: #2A2A2A;
+        }
+
+        .lunabf-radio-card input[type="radio"]:checked + .lunabf-radio-label {
+            color: #2372D9;
+            font-weight: 600;
+        }
+
+        .lunabf-reference-img {
+            width: 5rem;
+            height: 3.75rem;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            border: 2px solid #444;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .lunabf-radio-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #ccc;
+            transition: all 0.3s ease;
+        }
+
+        .lunabf-color-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .lunabf-color-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background: #252525;
+            border: 2px solid #333;
+            border-radius: 0.625rem;
+            transition: all 0.3s ease;
+        }
+
+        .lunabf-color-label {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-family: 'gidole', sans-serif;
+        }
+
+        .lunabf-color-input {
+            width: 3.75rem;
+            height: 3.75rem;
+            border: 3px solid #444;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .lunabf-color-value {
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: monospace;
+            padding: 0.25rem 0.5rem;
+            background: #1A1A1A;
+            border-radius: 0.25rem;
+            border: 1px solid #444;
+            min-width: 4.375rem;
+            text-align: center;
+        }
+
+        .lunabf-form-error {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            padding: 0.6rem 0.8rem;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 0.5rem;
+            border-left: 3px solid #e74c3c;
+            display: none;
+            line-height: 1.4;
+            font-family: 'gidole', sans-serif;
+        }
+
+        .lunabf-form-success {
+            color: #27ae60;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            padding: 0.8rem 1rem;
+            background: rgba(39, 174, 96, 0.1);
+            border-radius: 0.5rem;
+            border-left: 4px solid #27ae60;
+            display: none;
+            text-align: center;
+            font-family: 'gidole', sans-serif;
+        }
+
+        .lunabf-loading-spinner {
+            display: inline-block;
+            width: 1.125rem;
+            height: 1.125rem;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: lunabfSpin 1s ease-in-out infinite;
+        }
+
+        @keyframes lunabfSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        .lunabf-custom-checkbox {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #666;
+            border-radius: 0.25rem;
+            margin-right: 0.625rem;
+            transition: all 0.3s ease;
+            background: #1A1A1A;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        input[type="checkbox"]:checked + .lunabf-checkbox-label .lunabf-custom-checkbox {
+            background: #2372D9;
+            border-color: #2372D9;
+        }
+
+        input[type="checkbox"]:checked + .lunabf-checkbox-label .lunabf-custom-checkbox::before {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .lunabf-form-tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            color: #2372D9;
+            margin-left: 0.3125rem;
+            font-weight: bold;
+            border: 1px solid #2372D9;
+            border-radius: 50%;
+            width: 1.125rem;
+            height: 1.125rem;
+            text-align: center;
+            line-height: 1rem;
+        }
+
+        .lunabf-form-tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 0.625rem 0.9375rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 0.3125rem 0.9375rem rgba(0,0,0,0.4);
+            font-family: 'gidole', sans-serif;
+        }
+
+        @media (max-width: 48rem) {
+            .lunabf-container {
+                padding: 1.25rem;
+            }
+            
+            .lunabf-grid-3x2, 
+            .lunabf-grid-2x2, 
+            .lunabf-color-grid,
+            .lunabf-checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .lunabf-form-navigation {
+                flex-direction: column-reverse;
+                gap: 0.625rem;
+            }
+            
+            .lunabf-nav-button {
+                width: 100% !important;
+                margin: 0 0 0.5rem 0 !important;
+            }
+
+            .lunabf-dynamic-radio {
+                width: 180px;
+            }
+
+            .lunabf-file-input-wrapper {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .lunabf-file-button {
+                width: 100%;
+            }
+
+            .lunabf-file-status {
+                width: 100%;
+            }
+        }
+
+        .lunabf-input-error {
+            border-color: #e74c3c !important;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.25) !important;
+        }
+
+        small {
+            font-size: 0.8rem;
+            color: #888;
+            display: block;
+            margin-top: 0.3125rem;
+            font-family: 'gidole', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="lunabf-container">
+        <div class="lunabf-progress-container">
+            <div class="lunabf-progress-bar">
+                <div class="lunabf-progress-fill" id="lunabfProgressFill"></div>
+                <div class="lunabf-step-indicator" id="lunabfStepIndicator">Paso 1 de 5</div>
+            </div>
+        </div>
+
+        <form id="lunabfForm" novalidate>
+            <fieldset class="lunabf-form-step lunabf-active-step" id="lunabfStep1">
+                <legend>Paso 1: Aceptación</legend>
+                <div class="lunabf-form-group">
+                    <div class="lunabf-cubic-toggle">
+                        <input type="checkbox" id="lunabfAcceptance" name="acceptance" required>
+                        <div class="lunabf-toggle-switch" onclick="lunabfToggleAcceptance()">
+                            <div class="lunabf-toggle-circle"></div>
+                        </div>
+                        <label for="lunabfAcceptance" class="lunabf-toggle-label">
+                            He leído y acepto el <a href="https://lunamkt.com/aviso-de-privacidad/" target="_blank">Aviso de Privacidad</a> y los <a href="https://lunamkt.com/terminos-y-condiciones/" target="_blank">Términos y Condiciones</a>. <span class="lunabf-form-required">*</span>
+                        </label>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfAcceptanceError"></div>
+                </div>
+                <div class="lunabf-form-navigation">
+                    <button type="button" class="lunabf-nav-button lunabf-next-btn">
+                        <span class="lunabf-nav-text">Siguiente</span>
+                    </button>
+                </div>
+            </fieldset>
+
+            <fieldset class="lunabf-form-step" id="lunabfStep2">
+                <legend>Paso 2: Información de Contacto</legend>
+                <div class="lunabf-form-group">
+                    <label for="lunabfFullName" class="lunabf-form-label">Nombre Completo: <span class="lunabf-form-required">*</span></label>
+                    <input type="text" id="lunabfFullName" name="fullName" class="lunabf-form-input" required placeholder="Ej: Juan Pérez">
+                    <div class="lunabf-form-error" id="lunabfFullNameError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label for="lunabfEmail" class="lunabf-form-label">Correo Electrónico: <span class="lunabf-form-required">*</span></label>
+                    <input type="email" id="lunabfEmail" name="email" class="lunabf-form-input" required placeholder="Ej: juan.perez@ejemplo.com">
+                    <div class="lunabf-form-error" id="lunabfEmailError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label for="lunabfWhatsapp" class="lunabf-form-label">Número de WhatsApp: <span class="lunabf-form-required">*</span></label>
+                    <input type="tel" id="lunabfWhatsapp" name="whatsapp" class="lunabf-form-input" required placeholder="Ej: 5512345678" minlength="10" maxlength="15">
+                    <div class="lunabf-form-error" id="lunabfWhatsappError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label for="lunabfOfficePhone" class="lunabf-form-label">Teléfono de Oficina:</label>
+                    <input type="tel" id="lunabfOfficePhone" name="officePhone" class="lunabf-form-input" placeholder="Ej: 5587654321" minlength="10" maxlength="15">
+                    <div class="lunabf-form-error" id="lunabfOfficePhoneError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label for="lunabfBusinessName" class="lunabf-form-label">Nombre del Negocio: <span class="lunabf-form-required">*</span></label>
+                    <input type="text" id="lunabfBusinessName" name="businessName" class="lunabf-form-input" required placeholder="Ej: Luna Estrategia Digital">
+                    <div class="lunabf-form-error" id="lunabfBusinessNameError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label for="lunabfCountry" class="lunabf-form-label">País: <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-select-container">
+                        <div class="lunabf-select-trigger" id="lunabfCountryTrigger">
+                            <span>Seleccione un país</span>
+                            <div class="lunabf-select-arrow"></div>
+                        </div>
+                        <div class="lunabf-select-options" id="lunabfCountryOptions">
+                            <div class="lunabf-select-option" data-value="">Seleccione un país</div>
+                            <div class="lunabf-select-option" data-value="Mexico">México</div>
+                            <div class="lunabf-select-option" data-value="USA">Estados Unidos</div>
+                            <div class="lunabf-select-option" data-value="Canada">Canadá</div>
+                            <div class="lunabf-select-option" data-value="Other">Otro</div>
+                        </div>
+                        <input type="hidden" id="lunabfCountry" name="country" required>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfCountryError"></div>
+                </div>
+                <div class="lunabf-form-group" id="lunabfMexicoStatesGroup" style="display: none;">
+                    <label for="lunabfMexicoState" class="lunabf-form-label">Estado (México): <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-select-container">
+                        <div class="lunabf-select-trigger" id="lunabfMexicoStateTrigger">
+                            <span>Seleccione un estado</span>
+                            <div class="lunabf-select-arrow"></div>
+                        </div>
+                        <div class="lunabf-select-options" id="lunabfMexicoStateOptions">
+                            <div class="lunabf-select-option" data-value="">Seleccione un estado</div>
+                            <div class="lunabf-select-option" data-value="Aguascalientes">Aguascalientes</div>
+                            <div class="lunabf-select-option" data-value="Baja California">Baja California</div>
+                            <div class="lunabf-select-option" data-value="Baja California Sur">Baja California Sur</div>
+                            <div class="lunabf-select-option" data-value="Campeche">Campeche</div>
+                            <div class="lunabf-select-option" data-value="Chiapas">Chiapas</div>
+                            <div class="lunabf-select-option" data-value="Chihuahua">Chihuahua</div>
+                            <div class="lunabf-select-option" data-value="Coahuila">Coahuila</div>
+                            <div class="lunabf-select-option" data-value="Colima">Colima</div>
+                            <div class="lunabf-select-option" data-value="Durango">Durango</div>
+                            <div class="lunabf-select-option" data-value="Guanajuato">Guanajuato</div>
+                            <div class="lunabf-select-option" data-value="Guerrero">Guerrero</div>
+                            <div class="lunabf-select-option" data-value="Hidalgo">Hidalgo</div>
+                            <div class="lunabf-select-option" data-value="Jalisco">Jalisco</div>
+                            <div class="lunabf-select-option" data-value="México">México</div>
+                            <div class="lunabf-select-option" data-value="Michoacán">Michoacán</div>
+                            <div class="lunabf-select-option" data-value="Morelos">Morelos</div>
+                            <div class="lunabf-select-option" data-value="Nayarit">Nayarit</div>
+                            <div class="lunabf-select-option" data-value="Nuevo León">Nuevo León</div>
+                            <div class="lunabf-select-option" data-value="Oaxaca">Oaxaca</div>
+                            <div class="lunabf-select-option" data-value="Puebla">Puebla</div>
+                            <div class="lunabf-select-option" data-value="Querétaro">Querétaro</div>
+                            <div class="lunabf-select-option" data-value="Quintana Roo">Quintana Roo</div>
+                            <div class="lunabf-select-option" data-value="San Luis Potosí">San Luis Potosí</div>
+                            <div class="lunabf-select-option" data-value="Sinaloa">Sinaloa</div>
+                            <div class="lunabf-select-option" data-value="Sonora">Sonora</div>
+                            <div class="lunabf-select-option" data-value="Tabasco">Tabasco</div>
+                            <div class="lunabf-select-option" data-value="Tamaulipas">Tamaulipas</div>
+                            <div class="lunabf-select-option" data-value="Tlaxcala">Tlaxcala</div>
+                            <div class="lunabf-select-option" data-value="Veracruz">Veracruz</div>
+                            <div class="lunabf-select-option" data-value="Yucatán">Yucatán</div>
+                            <div class="lunabf-select-option" data-value="Zacatecas">Zacatecas</div>
+                            <div class="lunabf-select-option" data-value="Ciudad de México">Ciudad de México</div>
+                        </div>
+                        <input type="hidden" id="lunabfMexicoState" name="mexicoState">
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfMexicoStateError"></div>
+                </div>
+                <div class="lunabf-form-navigation">
+                    <button type="button" class="lunabf-nav-button lunabf-prev-btn">
+                        <span class="lunabf-nav-text">Anterior</span>
+                    </button>
+                    <button type="button" class="lunabf-nav-button lunabf-next-btn">
+                        <span class="lunabf-nav-text">Siguiente</span>
+                    </button>
+                </div>
+            </fieldset>
+
+            <fieldset class="lunabf-form-step" id="lunabfStep3">
+                <legend>Paso 3: Información Básica de la Empresa</legend>
+                <div class="lunabf-form-group">
+                    <label for="lunabfBusinessActivity" class="lunabf-form-label">Breve descripción de su actividad comercial y sus clientes objetivo: <span class="lunabf-form-required">*</span></label>
+                    <textarea id="lunabfBusinessActivity" name="businessActivity" class="lunabf-form-textarea" required minlength="15" placeholder="Describa su negocio y a quién se dirige (mín. 15 caracteres)"></textarea>
+                    <div class="lunabf-form-error" id="lunabfBusinessActivityError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label class="lunabf-form-label">¿Actualmente tiene un logo? <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-dynamic-radio">
+                        <input type="radio" id="lunabfHasLogoYes" name="hasLogo" value="Yes" required>
+                        <label for="lunabfHasLogoYes" class="lunabf-radio-option">Sí</label>
+                        <input type="radio" id="lunabfHasLogoNo" name="hasLogo" value="No" required>
+                        <label for="lunabfHasLogoNo" class="lunabf-radio-option">No</label>
+                        <div class="lunabf-radio-indicator"></div>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfHasLogoError"></div>
+                </div>
+                <div id="lunabfCurrentLogoDetails" style="display: none;">
+                    <div class="lunabf-form-group">
+                        <label for="lunabfCurrentLogoFile" class="lunabf-form-label">Subir logo actual (.jpg, .png, .pdf, max 2MB):</label>
+                        <div class="lunabf-file-input-wrapper">
+                            <input type="file" id="lunabfCurrentLogoFile" name="currentLogoFile" class="lunabf-file-input" accept=".jpg,.jpeg,.png,.pdf">
+                            <label for="lunabfCurrentLogoFile" class="lunabf-file-button">
+                                <span class="lunabf-file-text">Elegir archivo</span>
+                            </label>
+                            <div class="lunabf-file-status" id="lunabfCurrentLogoFileStatus">Ningún archivo seleccionado</div>
+                        </div>
+                        <div class="lunabf-form-error" id="lunabfCurrentLogoFileError"></div>
+                    </div>
+                    <div class="lunabf-form-group">
+                        <label for="lunabfKeepElements" class="lunabf-form-label">¿Qué elementos desea conservar de su logo actual?</label>
+                        <textarea id="lunabfKeepElements" name="keepElements" class="lunabf-form-textarea" placeholder="Ej: la tipografía, el color azul, el isotipo de la montaña..."></textarea>
+                    </div>
+                </div>
+
+                <div class="lunabf-form-group">
+                    <label class="lunabf-form-label">¿Qué estilo de diseño desea para su nuevo logo? <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-radio-grid lunabf-grid-3x2">
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfStyleMinimalist" name="designStyle" value="Minimalist" required>
+                            <label for="lunabfStyleMinimalist" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/logo-minimalista.svg" alt="Ejemplo Minimalista" class="lunabf-reference-img">
+                                Minimalista
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfStyleFun" name="designStyle" value="Fun" required>
+                            <label for="lunabfStyleFun" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/logo-fun.svg" alt="Ejemplo Divertido" class="lunabf-reference-img">
+                                Divertido
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfStyleShield" name="designStyle" value="Shield" required>
+                            <label for="lunabfStyleShield" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/logo-emblema.svg" alt="Ejemplo Escudo" class="lunabf-reference-img">
+                                Escudo
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfStyleMascot" name="designStyle" value="Mascot" required>
+                            <label for="lunabfStyleMascot" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/logo-mascota.svg" alt="Ejemplo Con Mascota" class="lunabf-reference-img">
+                                Con Mascota
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfStyleMonogram" name="designStyle" value="Monogram" required>
+                            <label for="lunabfStyleMonogram" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/logo-monogram.svg" alt="Ejemplo Monograma" class="lunabf-reference-img">
+                                Monograma
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfStyleAnagram" name="designStyle" value="Anagram" required>
+                            <label for="lunabfStyleAnagram" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/logo-anagrama.svg" alt="Ejemplo Anagrama" class="lunabf-reference-img">
+                                Anagrama
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfStylePictogram" name="designStyle" value="Pictogram" required>
+                            <label for="lunabfStylePictogram" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/logo-pictograma.svg" alt="Ejemplo Pictograma" class="lunabf-reference-img">
+                                Pictograma
+                            </label>
+                        </div>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfDesignStyleError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label for="lunabfReferenceImages" class="lunabf-form-label">Subir hasta 3 imágenes de referencia (.jpg, .png, max 2MB c/u): <span class="lunabf-form-tooltip" data-tooltip="Sugerimos subir al menos una imagen de referencia para entender mejor sus gustos.">?</span></label>
+                    <div class="lunabf-file-input-wrapper">
+                        <input type="file" id="lunabfReferenceImages" name="referenceImages[]" class="lunabf-file-input" accept=".jpg,.jpeg,.png" multiple>
+                        <label for="lunabfReferenceImages" class="lunabf-file-button">
+                            <span class="lunabf-file-text">Elegir archivos</span>
+                        </label>
+                        <div class="lunabf-file-status" id="lunabfReferenceImagesStatus">Ningún archivo seleccionado</div>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfReferenceImagesError"></div>
+                    <small>Puede seleccionar múltiples archivos.</small>
+                </div>
+                <div class="lunabf-form-group">
+                    <label class="lunabf-form-label">¿Dónde desea visualizar el logo? <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-radio-grid lunabf-grid-2x2">
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfVizTshirt" name="visualizeOn" value="T-shirt" required>
+                            <label for="lunabfVizTshirt" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/icono-playera.svg" alt="Ejemplo Playera" class="lunabf-reference-img">
+                                Playera
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfVizPackage" name="visualizeOn" value="Package" required>
+                            <label for="lunabfVizPackage" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/icono-empaque.svg" alt="Ejemplo Empaque" class="lunabf-reference-img">
+                                Empaque
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfVizCard" name="visualizeOn" value="Card" required>
+                            <label for="lunabfVizCard" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/icono-id.svg" alt="Ejemplo Tarjeta" class="lunabf-reference-img">
+                                Tarjeta
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfVizSign" name="visualizeOn" value="Sign" required>
+                            <label for="lunabfVizSign" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/icono-anuncio.svg" alt="Ejemplo Letrero" class="lunabf-reference-img">
+                                Letrero
+                            </label>
+                        </div>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfVisualizeOnError"></div>
+                </div>
+                <div class="lunabf-form-navigation">
+                    <button type="button" class="lunabf-nav-button lunabf-prev-btn">
+                        <span class="lunabf-nav-text">Anterior</span>
+                    </button>
+                    <button type="button" class="lunabf-nav-button lunabf-next-btn">
+                        <span class="lunabf-nav-text">Siguiente</span>
+                    </button>
+                </div>
+            </fieldset>
+
+            <fieldset class="lunabf-form-step" id="lunabfStep4">
+                <legend>Paso 4: Preferencias de Diseño</legend>
+                <div class="lunabf-form-group">
+                    <label for="lunabfBrandName" class="lunabf-form-label">Nombre de la marca (para el logo): <span class="lunabf-form-required">*</span></label>
+                    <input type="text" id="lunabfBrandName" name="brandName" class="lunabf-form-input" required placeholder="Ej: Luna">
+                    <div class="lunabf-form-error" id="lunabfBrandNameError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label for="lunabfSubtext" class="lunabf-form-label">Subtexto (slogan, tagline):</label>
+                    <input type="text" id="lunabfSubtext" name="subtext" class="lunabf-form-input" placeholder="Ej: Estrategia Digital que Ilumina">
+                </div>
+                <div class="lunabf-form-group">
+                    <label for="lunabfIntegrateElement" class="lunabf-form-label">¿Algún elemento que desee integrar? (ej. mariposa, martillo, auto, etc.):</label>
+                    <textarea id="lunabfIntegrateElement" name="integrateElement" class="lunabf-form-textarea" placeholder="Describa elementos específicos que le gustaría ver"></textarea>
+                </div>
+                <div class="lunabf-form-group">
+                    <label class="lunabf-form-label">Forma(s) predominante(s) preferida(s) en el diseño: <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-checkbox-grid">
+                        <div class="lunabf-checkbox-item">
+                            <input type="checkbox" id="lunabfShapeLines" name="preferredShapes[]" value="Lines">
+                            <label for="lunabfShapeLines" class="lunabf-checkbox-label"><span class="lunabf-custom-checkbox"></span>Líneas</label>
+                        </div>
+                        <div class="lunabf-checkbox-item">
+                            <input type="checkbox" id="lunabfShapeCircles" name="preferredShapes[]" value="Circles">
+                            <label for="lunabfShapeCircles" class="lunabf-checkbox-label"><span class="lunabf-custom-checkbox"></span>Círculos</label>
+                        </div>
+                        <div class="lunabf-checkbox-item">
+                            <input type="checkbox" id="lunabfShapeSquares" name="preferredShapes[]" value="Squares">
+                            <label for="lunabfShapeSquares" class="lunabf-checkbox-label"><span class="lunabf-custom-checkbox"></span>Cuadrados</label>
+                        </div>
+                        <div class="lunabf-checkbox-item">
+                            <input type="checkbox" id="lunabfShapeTriangles" name="preferredShapes[]" value="Triangles">
+                            <label for="lunabfShapeTriangles" class="lunabf-checkbox-label"><span class="lunabf-custom-checkbox"></span>Triángulos</label>
+                        </div>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfPreferredShapesError"></div>
+                </div>
+
+                <div class="lunabf-form-group">
+                    <label class="lunabf-form-label">Preferencia de paleta de colores: <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-radio-grid lunabf-grid-3x2">
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfColorVivid" name="colorPalette" value="Vivid" required>
+                            <label for="lunabfColorVivid" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/colores-vivos.svg" alt="Paleta Colores Vivos" class="lunabf-reference-img">
+                                Vivos
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfColorEarthy" name="colorPalette" value="Earthy" required>
+                            <label for="lunabfColorEarthy" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/colores-tierra.svg" alt="Paleta Colores Terrosos" class="lunabf-reference-img">
+                                Terrosos
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfColorMonochromatic" name="colorPalette" value="Monochromatic" required>
+                            <label for="lunabfColorMonochromatic" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/colores-monocromaticos.svg" alt="Paleta Colores Monocromaticos" class="lunabf-reference-img">
+                                Monocromáticos
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfColorWarm" name="colorPalette" value="Warm" required>
+                            <label for="lunabfColorWarm" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/colores-calidos.svg" alt="Paleta Cálida" class="lunabf-reference-img">
+                                Cálida
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfColorCool" name="colorPalette" value="Cool" required>
+                            <label for="lunabfColorCool" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/colores-frios.svg" alt="Paleta Fría" class="lunabf-reference-img">
+                                Fría
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfColorPastel" name="colorPalette" value="Pastel" required>
+                            <label for="lunabfColorPastel" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/colores-pastel.svg" alt="Paleta Pastel" class="lunabf-reference-img">
+                                Pastel
+                            </label>
+                        </div>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfColorPaletteError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label class="lunabf-form-label">Seleccione 3 colores base para su logo: <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-color-grid">
+                        <div class="lunabf-color-item">
+                            <label for="lunabfColor1" class="lunabf-color-label">Color 1:</label>
+                            <input type="color" id="lunabfColor1" name="baseColor1" value="#4bafff" class="lunabf-color-input" required>
+                            <span id="lunabfColor1Value" class="lunabf-color-value">#4bafff</span>
+                        </div>
+                        <div class="lunabf-color-item">
+                            <label for="lunabfColor2" class="lunabf-color-label">Color 2:</label>
+                            <input type="color" id="lunabfColor2" name="baseColor2" value="#ff6b6b" class="lunabf-color-input" required>
+                            <span id="lunabfColor2Value" class="lunabf-color-value">#ff6b6b</span>
+                        </div>
+                        <div class="lunabf-color-item">
+                            <label for="lunabfColor3" class="lunabf-color-label">Color 3:</label>
+                            <input type="color" id="lunabfColor3" name="baseColor3" value="#4ecdc4" class="lunabf-color-input" required>
+                            <span id="lunabfColor3Value" class="lunabf-color-value">#4ecdc4</span>
+                        </div>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfBaseColorsError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label class="lunabf-form-label">Estilo de tipografía preferido: <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-radio-grid lunabf-grid-2x2">
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfTypoModern" name="typographyStyle" value="Modern" required>
+                            <label for="lunabfTypoModern" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/letras-modernas.svg" alt="Tipografía Moderna" class="lunabf-reference-img">
+                                Moderna
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfTypoThin" name="typographyStyle" value="Thin" required>
+                            <label for="lunabfTypoThin" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/letras-slim.svg" alt="Tipografía Delgada" class="lunabf-reference-img">
+                                Delgada
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfTypoBold" name="typographyStyle" value="Bold" required>
+                            <label for="lunabfTypoBold" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/letras-gruesas.svg" alt="Tipografía Gruesa" class="lunabf-reference-img">
+                                Gruesa
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfTypoSerif" name="typographyStyle" value="Serif" required>
+                            <label for="lunabfTypoSerif" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/letras-serif.svg" alt="Tipografía Serif" class="lunabf-reference-img">
+                                Serif
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfTypoScript" name="typographyStyle" value="Script" required>
+                            <label for="lunabfTypoScript" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/letra-caligrafica.svg" alt="Tipografía Caligráfica" class="lunabf-reference-img">
+                                Caligráfica
+                            </label>
+                        </div>
+                        <div class="lunabf-radio-card">
+                            <input type="radio" id="lunabfTypoOld" name="typographyStyle" value="Decorativa" required>
+                            <label for="lunabfTypoOld" class="lunabf-radio-label">
+                                <img src="https://lunamkt.com/wp-content/uploads/2020/08/letras-decorativas.svg" alt="Tipografía Decorativa" class="lunabf-reference-img">
+                                Decorativa
+                            </label>
+                        </div>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfTypographyStyleError"></div>
+                </div>
+                <div class="lunabf-form-navigation">
+                    <button type="button" class="lunabf-nav-button lunabf-prev-btn">
+                        <span class="lunabf-nav-text">Anterior</span>
+                    </button>
+                    <button type="button" class="lunabf-nav-button lunabf-next-btn">
+                        <span class="lunabf-nav-text">Siguiente</span>
+                    </button>
+                </div>
+            </fieldset>
+
+            <fieldset class="lunabf-form-step" id="lunabfStep5">
+                <legend>Paso 5: Información Adicional</legend>
+                <div class="lunabf-form-group">
+                    <label class="lunabf-form-label">¿Ha contratado previamente a Luna Estrategia Digital? <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-dynamic-radio">
+                        <input type="radio" id="lunabfHiredBeforeYes" name="hiredBefore" value="Yes" required>
+                        <label for="lunabfHiredBeforeYes" class="lunabf-radio-option">Sí</label>
+                        <input type="radio" id="lunabfHiredBeforeNo" name="hiredBefore" value="No" required>
+                        <label for="lunabfHiredBeforeNo" class="lunabf-radio-option">No</label>
+                        <div class="lunabf-radio-indicator"></div>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfHiredBeforeError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label for="lunabfHowHeard" class="lunabf-form-label">¿Cómo se enteró de nosotros? <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-select-container">
+                        <div class="lunabf-select-trigger" id="lunabfHowHeardTrigger">
+                            <span>Seleccione una opción</span>
+                            <div class="lunabf-select-arrow"></div>
+                        </div>
+                        <div class="lunabf-select-options" id="lunabfHowHeardOptions">
+                            <div class="lunabf-select-option" data-value="">Seleccione una opción</div>
+                            <div class="lunabf-select-option" data-value="Google">Google</div>
+                            <div class="lunabf-select-option" data-value="Social Media">Redes Sociales</div>
+                            <div class="lunabf-select-option" data-value="Referral">Recomendación</div>
+                            <div class="lunabf-select-option" data-value="Other">Otro</div>
+                        </div>
+                        <input type="hidden" id="lunabfHowHeard" name="howHeard" required>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfHowHeardError"></div>
+                </div>
+                <div class="lunabf-form-group">
+                    <label class="lunabf-form-label">¿Necesita otros servicios?</label>
+                    <div class="lunabf-checkbox-grid">
+                        <div class="lunabf-checkbox-item">
+                            <input type="checkbox" id="lunabfServiceMarketing" name="otherServices[]" value="Digital Marketing">
+                            <label for="lunabfServiceMarketing" class="lunabf-checkbox-label"><span class="lunabf-custom-checkbox"></span>Marketing Digital</label>
+                        </div>
+                        <div class="lunabf-checkbox-item">
+                            <input type="checkbox" id="lunabfServiceWebDev" name="otherServices[]" value="Web Development">
+                            <label for="lunabfServiceWebDev" class="lunabf-checkbox-label"><span class="lunabf-custom-checkbox"></span>Desarrollo Web</label>
+                        </div>
+                        <div class="lunabf-checkbox-item">
+                            <input type="checkbox" id="lunabfServiceOther" name="otherServices[]" value="Other">
+                            <label for="lunabfServiceOther" class="lunabf-checkbox-label"><span class="lunabf-custom-checkbox"></span>Otro</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="lunabf-form-group" id="lunabfOtherServiceTextGroup" style="display: none;">
+                    <label for="lunabfOtherServiceText" class="lunabf-form-label">Especifique otro servicio:</label>
+                    <input type="text" id="lunabfOtherServiceText" name="otherServiceText" class="lunabf-form-input" placeholder="Describa el servicio que necesita">
+                </div>
+                <div class="lunabf-form-group">
+                    <label class="lunabf-form-label">Al finalizar el servicio, ¿le gustaría ayudarnos compartiendo su opinión objetiva sobre el servicio proporcionado? <span class="lunabf-form-required">*</span></label>
+                    <div class="lunabf-dynamic-radio">
+                        <input type="radio" id="lunabfShareOpinionYes" name="shareOpinion" value="Yes" required>
+                        <label for="lunabfShareOpinionYes" class="lunabf-radio-option">Sí</label>
+                        <input type="radio" id="lunabfShareOpinionNo" name="shareOpinion" value="No" required>
+                        <label for="lunabfShareOpinionNo" class="lunabf-radio-option">No</label>
+                        <div class="lunabf-radio-indicator"></div>
+                    </div>
+                    <div class="lunabf-form-error" id="lunabfShareOpinionError"></div>
+                </div>
+                <div class="lunabf-form-navigation">
+                    <button type="button" class="lunabf-nav-button lunabf-prev-btn">
+                        <span class="lunabf-nav-text">Anterior</span>
+                    </button>
+                    <button type="submit" class="lunabf-nav-button lunabf-submit-btn">
+                        <span class="lunabf-nav-text">
+                            <span class="lunabf-submit-text">Enviar Brief</span>
+                            <span class="lunabf-loading-spinner" style="display: none;"></span>
+                        </span>
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+        <div id="lunabfFormResult" class="lunabf-form-success" style="display:none;"></div>
+    </div>
+
+    <script>
+        let lunabfCurrentStep = 0;
+        const lunabfTotalSteps = 5;
+
+        function lunabfToggleAcceptance() {
+            const checkbox = document.getElementById('lunabfAcceptance');
+            const toggleSwitch = document.querySelector('.lunabf-toggle-switch');
+            
+            checkbox.checked = !checkbox.checked;
+            toggleSwitch.classList.toggle('lunabf-checked', checkbox.checked);
+        }
+
+        function lunabfInitializeCustomComponents() {
+            lunabfInitializeCustomSelects();
+            lunabfInitializeDynamicRadioToggles();
+            lunabfInitializeColorPickers();
+            lunabfInitializeFileInputs();
+        }
+
+        function lunabfInitializeFileInputs() {
+            const fileInputs = document.querySelectorAll('.lunabf-file-input');
+            
+            fileInputs.forEach(input => {
+                const wrapper = input.closest('.lunabf-file-input-wrapper');
+                const statusDiv = wrapper.querySelector('.lunabf-file-status');
+                
+                input.addEventListener('change', function() {
+                    if (this.files.length === 0) {
+                        statusDiv.textContent = 'Ningún archivo seleccionado';
+                        statusDiv.style.color = '#888';
+                    } else if (this.files.length === 1) {
+                        statusDiv.textContent = this.files[0].name;
+                        statusDiv.style.color = '#ccc';
+                    } else {
+                        statusDiv.textContent = `${this.files.length} archivos seleccionados`;
+                        statusDiv.style.color = '#ccc';
+                    }
+                });
+            });
+        }
+
+        function lunabfInitializeCustomSelects() {
+            const selects = document.querySelectorAll('.lunabf-select-container');
+            
+            selects.forEach(selectContainer => {
+                const trigger = selectContainer.querySelector('.lunabf-select-trigger');
+                const options = selectContainer.querySelector('.lunabf-select-options');
+                const hiddenInput = selectContainer.querySelector('input[type="hidden"]');
+                
+                trigger.addEventListener('click', () => {
+                    const isOpen = options.classList.contains('lunabf-open');
+                    
+                    document.querySelectorAll('.lunabf-select-options.lunabf-open').forEach(opt => {
+                        opt.classList.remove('lunabf-open');
+                        opt.parentNode.querySelector('.lunabf-select-trigger').classList.remove('lunabf-open');
+                    });
+                    
+                    if (!isOpen) {
+                        options.classList.add('lunabf-open');
+                        trigger.classList.add('lunabf-open');
+                    }
+                });
+                
+                options.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('lunabf-select-option')) {
+                        const value = e.target.dataset.value;
+                        const text = e.target.textContent;
+                        
+                        hiddenInput.value = value;
+                        trigger.querySelector('span').textContent = text;
+                        
+                        options.querySelectorAll('.lunabf-select-option').forEach(opt => opt.classList.remove('lunabf-selected'));
+                        e.target.classList.add('lunabf-selected');
+                        
+                        options.classList.remove('lunabf-open');
+                        trigger.classList.remove('lunabf-open');
+                        
+                        hiddenInput.dispatchEvent(new Event('change'));
+                        
+                        if (hiddenInput.id === 'lunabfCountry') {
+                            lunabfHandleCountryChange(value);
+                        }
+                    }
+                });
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.lunabf-select-container')) {
+                    document.querySelectorAll('.lunabf-select-options.lunabf-open').forEach(opt => {
+                        opt.classList.remove('lunabf-open');
+                        opt.parentNode.querySelector('.lunabf-select-trigger').classList.remove('lunabf-open');
+                    });
+                }
+            });
+        }
+
+        function lunabfInitializeDynamicRadioToggles() {
+            const toggles = document.querySelectorAll('.lunabf-dynamic-radio');
+            
+            toggles.forEach(toggle => {
+                const radios = toggle.querySelectorAll('input[type="radio"]');
+                const labels = toggle.querySelectorAll('.lunabf-radio-option');
+                
+                function lunabfUpdateToggleState() {
+                    const radio1 = radios[0];
+                    const radio2 = radios[1];
+                    
+                    toggle.classList.remove('lunabf-option-1-selected', 'lunabf-option-2-selected');
+                    
+                    if (radio1.checked) {
+                        toggle.classList.add('lunabf-option-1-selected');
+                    } else if (radio2.checked) {
+                        toggle.classList.add('lunabf-option-2-selected');
+                    }
+                }
+                
+                labels.forEach((label, index) => {
+                    label.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        
+                        radios.forEach(r => r.checked = false);
+                        radios[index].checked = true;
+                        
+                        lunabfUpdateToggleState();
+                        radios[index].dispatchEvent(new Event('change'));
+                    });
+                });
+                
+                radios.forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        lunabfUpdateToggleState();
+                        
+                        if (radio.name === 'hasLogo') {
+                            lunabfHandleHasLogoChange(radio.value);
+                        }
+                    });
+                });
+                
+                lunabfUpdateToggleState();
+            });
+        }
+
+        function lunabfInitializeColorPickers() {
+            const colorInputs = document.querySelectorAll('.lunabf-color-input');
+            colorInputs.forEach(input => {
+                const valueSpan = document.getElementById(input.id + 'Value');
+                if (valueSpan) {
+                    input.addEventListener('input', function() {
+                        valueSpan.textContent = this.value.toUpperCase();
+                        valueSpan.style.color = this.value;
+                    });
+                    
+                    valueSpan.textContent = input.value.toUpperCase();
+                    valueSpan.style.color = input.value;
+                }
+            });
+        }
+
+        function lunabfHandleCountryChange(value) {
+            const mexicoStatesGroup = document.getElementById('lunabfMexicoStatesGroup');
+            const mexicoStateSelect = document.getElementById('lunabfMexicoState');
+            
+            if (value === 'Mexico') {
+                mexicoStatesGroup.style.display = 'block';
+                mexicoStateSelect.required = true;
+            } else {
+                mexicoStatesGroup.style.display = 'none';
+                mexicoStateSelect.required = false;
+                lunabfClearError('lunabfMexicoState');
+            }
+        }
+
+        function lunabfHandleHasLogoChange(value) {
+            const currentLogoDetails = document.getElementById('lunabfCurrentLogoDetails');
+            
+            if (value === 'Yes') {
+                currentLogoDetails.style.display = 'block';
+            } else {
+                currentLogoDetails.style.display = 'none';
+                lunabfClearError('lunabfCurrentLogoFile');
+            }
+        }
+
+        function lunabfUpdateProgressBar() {
+            const progress = ((lunabfCurrentStep + 1) / lunabfTotalSteps) * 100;
+            document.getElementById('lunabfProgressFill').style.width = `${progress}%`;
+            document.getElementById('lunabfStepIndicator').textContent = `Paso ${lunabfCurrentStep + 1} de ${lunabfTotalSteps}`;
+        }
+
+        function lunabfShowStep(stepIndex) {
+            const steps = document.querySelectorAll('.lunabf-form-step');
+            steps.forEach((step, index) => {
+                step.classList.toggle('lunabf-active-step', index === stepIndex);
+            });
+            lunabfCurrentStep = stepIndex;
+            lunabfUpdateProgressBar();
+        }
+
+        function lunabfDisplayError(elementId, message) {
+            const errorElement = document.getElementById(elementId + 'Error');
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+            const inputElement = document.getElementById(elementId);
+            if (inputElement) {
+                inputElement.classList.add('lunabf-input-error');
+            }
+        }
+
+        function lunabfClearError(elementId) {
+            const errorElement = document.getElementById(elementId + 'Error');
+            if (errorElement) {
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+            const inputElement = document.getElementById(elementId);
+            if (inputElement) {
+                inputElement.classList.remove('lunabf-input-error');
+            }
+        }
+
+        function lunabfValidateField(field) {
+            lunabfClearError(field.id);
+            let isValid = true;
+            const value = field.value.trim();
+
+            if (field.required && !value && field.type !== 'checkbox' && field.type !== 'radio' && field.type !== 'file') {
+                lunabfDisplayError(field.id, 'Este campo es obligatorio.');
+                isValid = false;
+            }
+
+            if (field.required && field.type === 'checkbox' && !field.checked) {
+                lunabfDisplayError(field.id, 'Debe aceptar esta opción para continuar.');
+                isValid = false;
+            }
+            
+            if (field.type === 'email' && value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    lunabfDisplayError(field.id, 'Ingrese un correo electrónico válido.');
+                    isValid = false;
+                }
+            }
+
+            if (field.type === 'tel' && value) {
+                const phoneRegex = /^[0-9]+$/;
+                if (!phoneRegex.test(value) || value.length < (field.minlength || 10) || value.length > (field.maxlength || 15)) {
+                    lunabfDisplayError(field.id, `El número debe tener entre ${field.minlength || 10} y ${field.maxlength || 15} dígitos.`);
+                    isValid = false;
+                }
+            }
+            
+            if (field.id === 'lunabfFullName' && value && !/^[a-zA-Z\sñÑáéíóúÁÉÍÓÚüÜ]+$/.test(value)) {
+                lunabfDisplayError(field.id, 'Ingrese solo letras y espacios.');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function lunabfValidateStep(stepIndex) {
+            let isValidStep = true;
+            const steps = document.querySelectorAll('.lunabf-form-step');
+            const currentFields = steps[stepIndex].querySelectorAll('[required], input[type="tel"], input[type="email"], textarea[minlength], input[type="file"], input[type="color"]');
+            
+            currentFields.forEach(field => {
+                if (field.offsetWidth > 0 || field.offsetHeight > 0 || field.getClientRects().length > 0) {
+                    if (!lunabfValidateField(field)) {
+                        isValidStep = false;
+                    }
+                }
+            });
+
+            const radioGroups = steps[stepIndex].querySelectorAll('.lunabf-dynamic-radio');
+            radioGroups.forEach(group => {
+                const radios = group.querySelectorAll('input[type="radio"][required]');
+                if (radios.length > 0) {
+                    const groupName = radios[0].name;
+                    const isSelected = Array.from(radios).some(radio => radio.checked);
+                    if (!isSelected) {
+                        lunabfDisplayError('lunabf' + groupName.charAt(0).toUpperCase() + groupName.slice(1), 'Debe seleccionar una opción.');
+                        isValidStep = false;
+                    } else {
+                        lunabfClearError('lunabf' + groupName.charAt(0).toUpperCase() + groupName.slice(1));
+                    }
+                }
+            });
+
+            const preferredShapesGroup = steps[stepIndex].querySelectorAll('input[name="preferredShapes[]"]');
+            if (preferredShapesGroup.length > 0) {
+                const isChecked = Array.from(preferredShapesGroup).some(cb => cb.checked);
+                if (!isChecked) {
+                    lunabfDisplayError('lunabfPreferredShapes', 'Debe seleccionar al menos una forma.');
+                    isValidStep = false;
+                } else {
+                    lunabfClearError('lunabfPreferredShapes');
+                }
+            }
+
+            return isValidStep;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            lunabfInitializeCustomComponents();
+            
+            document.querySelectorAll('.lunabf-next-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (lunabfValidateStep(lunabfCurrentStep)) {
+                        if (lunabfCurrentStep < lunabfTotalSteps - 1) {
+                            lunabfShowStep(lunabfCurrentStep + 1);
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('.lunabf-prev-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (lunabfCurrentStep > 0) {
+                        lunabfShowStep(lunabfCurrentStep - 1);
+                    }
+                });
+            });
+
+            const otherServicesCheckbox = document.getElementById('lunabfServiceOther');
+            const otherServiceTextGroup = document.getElementById('lunabfOtherServiceTextGroup');
+            
+            if (otherServicesCheckbox) {
+                otherServicesCheckbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        otherServiceTextGroup.style.display = 'block';
+                        document.getElementById('lunabfOtherServiceText').required = true;
+                    } else {
+                        otherServiceTextGroup.style.display = 'none';
+                        document.getElementById('lunabfOtherServiceText').required = false;
+                    }
+                });
+            }
+
+            const allFields = document.querySelectorAll('input, select, textarea');
+            allFields.forEach(field => {
+                field.addEventListener('blur', () => lunabfValidateField(field));
+                if (field.type === 'checkbox' || field.type === 'radio' || field.tagName === 'SELECT' || field.type === 'color') {
+                    field.addEventListener('change', () => lunabfValidateField(field));
+                } else {
+                    field.addEventListener('input', () => lunabfClearError(field.id));
+                }
+            });
+
+            document.getElementById('lunabfForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (lunabfValidateStep(lunabfCurrentStep)) {
+                    alert('Formulario validado correctamente. Aquí se enviaría el formulario.');
+                }
+            });
+
+            lunabfShowStep(0);
+        });
+    </script>
+</body>
+</html>
